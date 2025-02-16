@@ -1,4 +1,5 @@
-{ systemInformation, ... }:
+{ pkgs, systemInformation, ... }:
+
 {
   home-manager.users."${systemInformation.userName}" = { ... }: {
     programs.helix = {
@@ -16,6 +17,20 @@
           auto-format = true;
         };
       };
+
+      languages.language = [
+        {
+          name = "nix";
+          formatter.command = "nixfmt";
+          auto-format = true;
+        }
+      ];
     };
+
+    home.packages = with pkgs; [
+      nil
+      nixd
+      nixfmt-rfc-style
+    ];
   };
 }
